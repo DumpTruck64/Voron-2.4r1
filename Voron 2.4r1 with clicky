@@ -150,7 +150,7 @@ position_max: 275
 #position_max: 340
 
 ##--------------------------------------------------------------------
-position_min: -5
+position_min: -8
 homing_speed: 8
 second_homing_speed: 3
 homing_retract_dist: 3
@@ -361,6 +361,29 @@ heater: heater_bed
 heater_temp: 60
 fan_speed: 1.0
 
+#[duplicate_pin_override]
+#pins: PD12
+
+[temperature_sensor Octopus]
+sensor_type: temperature_mcu
+[temperature_fan Pi]
+pin: PD15
+sensor_type: temperature_host
+kick_start_time: 0.5
+off_below: 0.1
+max_power: 1
+shutdown_speed: 0
+min_speed: 0
+min_temp: 0
+max_temp: 85
+target_temp: 45
+control: pid
+pid_kp: 1.0
+pid_ki: 0.5
+pid_kd: 2.0
+
+[exclude_object]
+
 #####################################################################
 # 	LED Control
 #####################################################################
@@ -505,6 +528,11 @@ color_order: RGB
 
 ##	Set RGB values on boot up for each Neopixel. 
 ##	Index 1 = display, Index 2 and 3 = Knob
+
+[output_pin daylight]
+pin: PB10
+pwm: True
+cycle_time: 0.01
 [delayed_gcode setdisplayneopixel]
 initial_duration: 1
 gcode:
@@ -538,10 +566,14 @@ path: ~/gcode_files
 
 [pause_resume]
 
-#[include /home/pi/klipper_config/nozzle_scrub.cfg]
+[include /home/pi/klipper_config/nozzle_scrub.cfg]
 [include Neopixel.cfg]
 
 [include klicky-probe.cfg]
+
+[include Adaptive_Meshing.cfg]
+
+[include KAMP_Settings.cfg]
 
 ## 	Thermistor Types
 ##   "EPCOS 100K B57560G104F"
@@ -562,103 +594,7 @@ path: ~/gcode_files
 #*# pid_kd = 268.003
 #*#
 #*# [probe]
-#*# z_offset = 0.300
-#*#
-#*# [bed_mesh PLA_60c]
-#*# version = 1
-#*# points =
-#*# 	-0.066250, -0.011250, -0.020000, -0.033750, -0.056250
-#*# 	-0.045000, 0.010000, 0.001250, -0.005000, -0.021250
-#*# 	-0.041250, 0.008750, 0.000000, -0.006250, -0.022500
-#*# 	-0.047500, -0.001250, -0.016250, -0.017500, -0.032500
-#*# 	-0.058750, -0.017500, -0.041250, -0.047500, -0.063750
-#*# tension = 0.2
-#*# min_x = 30.0
-#*# algo = lagrange
-#*# y_count = 5
-#*# mesh_y_pps = 2
-#*# min_y = 30.0
-#*# x_count = 5
-#*# max_y = 265.0
-#*# mesh_x_pps = 2
-#*# max_x = 265.0
-#*#
-#*# [bed_mesh PETG_80c]
-#*# version = 1
-#*# points =
-#*# 	-0.046250, -0.005000, -0.016250, -0.027500, -0.042500
-#*# 	-0.031250, 0.016250, 0.003750, -0.001250, -0.013750
-#*# 	-0.032500, 0.012500, 0.000000, -0.005000, -0.018750
-#*# 	-0.036250, 0.005000, -0.016250, -0.017500, -0.027500
-#*# 	-0.042500, -0.006250, -0.035000, -0.037500, -0.050000
-#*# tension = 0.2
-#*# min_x = 30.0
-#*# algo = lagrange
-#*# y_count = 5
-#*# mesh_y_pps = 2
-#*# min_y = 30.0
-#*# x_count = 5
-#*# max_y = 265.0
-#*# mesh_x_pps = 2
-#*# max_x = 265.0
+#*# z_offset = 5.750
 #*#
 #*# [stepper_z]
-#*# position_endstop = -0.525
-#*#
-#*# [bed_mesh PLA 80c]
-#*# version = 1
-#*# points =
-#*# 	-0.170000, -0.031250, -0.017500, -0.021250, -0.063750
-#*# 	-0.011250, -0.005000, 0.012500, 0.020000, -0.023750
-#*# 	-0.028750, -0.011250, 0.000000, 0.018750, -0.020000
-#*# 	-0.015000, -0.015000, 0.005000, 0.015000, -0.030000
-#*# 	0.010000, 0.006250, 0.011250, 0.018750, -0.031250
-#*# tension = 0.2
-#*# min_x = 30.0
-#*# algo = lagrange
-#*# y_count = 5
-#*# mesh_y_pps = 2
-#*# min_y = 30.0
-#*# x_count = 5
-#*# max_y = 265.0
-#*# mesh_x_pps = 2
-#*# max_x = 265.0
-#*#
-#*# [bed_mesh ABS110]
-#*# version = 1
-#*# points =
-#*# 	-0.016250, 0.006250, -0.016250, -0.016250, -0.043750
-#*# 	0.018750, 0.016250, 0.012500, 0.030000, -0.002500
-#*# 	0.002500, 0.001250, 0.000000, 0.027500, 0.006250
-#*# 	0.022500, 0.006250, 0.008750, 0.035000, 0.005000
-#*# 	0.051250, 0.035000, 0.037500, 0.057500, 0.030000
-#*# tension = 0.2
-#*# min_x = 30.0
-#*# algo = lagrange
-#*# y_count = 5
-#*# mesh_y_pps = 2
-#*# min_y = 30.0
-#*# x_count = 5
-#*# max_y = 265.0
-#*# mesh_x_pps = 2
-#*# max_x = 265.0
-#*#
-#*# [bed_mesh default]
-#*# version = 1
-#*# points =
-#*# 	  -0.008750, -0.047500, -0.056250, -0.085000, -0.036250, 0.050000
-#*# 	  0.012500, -0.031250, -0.053750, -0.032500, 0.010000, 0.030000
-#*# 	  0.000000, -0.038750, -0.000000, -0.025000, 0.007500, 0.042500
-#*# 	  -0.001250, -0.028750, -0.003750, -0.015000, -0.016250, 0.036250
-#*# 	  0.037500, -0.013750, -0.016250, -0.000000, 0.013750, 0.032500
-#*# 	  0.072500, 0.021250, 0.002500, -0.003750, 0.023750, 0.048750
-#*# tension = 0.2
-#*# min_x = 30.0
-#*# algo = lagrange
-#*# y_count = 6
-#*# mesh_y_pps = 2
-#*# min_y = 30.0
-#*# x_count = 6
-#*# max_y = 265.0
-#*# mesh_x_pps = 2
-#*# max_x = 265.0
+#*# position_endstop = 2.750
