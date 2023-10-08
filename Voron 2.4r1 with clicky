@@ -594,7 +594,7 @@ path: ~/gcode_files
 #*# pid_kd = 268.003
 #*#
 #*# [probe]
-#*# z_offset = 5.750
+#*# z_offset = 0
 #*#
 #*# [stepper_z]
-#*# position_endstop = 2.750
+#*# position_endstop = 0.0535
